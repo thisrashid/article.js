@@ -6,11 +6,14 @@
   "scripts": {
     "prestart": "npm run -s build",
     "start": "node dist/index.js",
-    "dev": "nodemon src/index.js --exec \"node -r babel-register\"",
+    "deves6": "nodemon src/index.js --exec \"node -r babel-register\"",
+    "dev": "nodemon src/index.js",
+    "dev:debug": "nodemon --inspect src/index.js",
     "clean": "rimraf dist",
     "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
-    "test": "jest --watch",
-    "lint": "esw -w src test"
+    "test": "nyc mocha -r chai/register-assert",
+    "lint": "esw -w src test",
+    "doc": "node_modules/.bin/jsdoc --configure ./jsdoc.config.json --package ./package.json -r"
   },
   "repository": {
     "type": "git",
@@ -30,13 +33,32 @@
   "homepage": "https://github.com/thisrashid/article.js#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "bookshelf": "^0.10.4",
+    "bookshelf-modelbase": "^2.10.4",
     "express": "^4.15.4",
-    "morgan": "^1.8.2"
+    "jsonwebtoken": "^7.4.3",
+    "knex": "^0.13.0",
+    "lodash": "^4.17.4",
+    "morgan": "^1.8.2",
+    "mysql": "^2.14.1",
+    "nconf": "^0.8.4",
+    "restify-express": "0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.1",
+    "jsdoc": "^3.5.4",
+    "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
-    "rimraf": "^2.6.1"
+    "nyc": "^11.1.0",
+    "rimraf": "^2.6.1",
+    "supertest": "^3.0.0"
+  },
+  "nyc": {
+    "reporter": [
+      "text",
+      "html"
+    ]
   }
 }

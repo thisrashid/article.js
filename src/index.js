@@ -1,4 +1,7 @@
-import app from './app';
+var app = require('./app');
+var conf = require('./lib/nconf');
 
-const { PORT = 3000 } = process.env;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`)); // eslint-disable-line no-console
+var PORT = conf.get('app:port');
+app.listen(PORT, function() {
+  console.log('Listening on port ' + PORT);
+});
